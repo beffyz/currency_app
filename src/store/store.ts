@@ -1,7 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
+import currencyApi from './api/CurrencyApi';
 
 const store = configureStore({
+  middleware: ((getDefaultMiddleware) => getDefaultMiddleware().concat(currencyApi.middleware)),
   reducer: {
+    [currencyApi.reducerPath]: currencyApi.reducer,
   },
 });
 
