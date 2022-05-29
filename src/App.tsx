@@ -5,15 +5,20 @@ import {
 import styles from './App.module.scss';
 import Page404 from './pages/404/Page404';
 import HomePage from './pages/Home/HomePage';
+import CurrencyPage from './pages/Currency/CurrencyPage';
 
 const App = () => (
-  <div className={styles.App}>
+  <section className={styles.App}>
     <Router>
 
       <Routes>
         <Route
           path="/"
           element={<HomePage />}
+        />
+        <Route
+          path="/currency/:code"
+          element={<CurrencyPage />}
         />
         <Route
           path="404"
@@ -25,7 +30,6 @@ const App = () => (
         />
       </Routes>
     </Router>
-  </div>
+  </section>
 );
-
 export default App;

@@ -1,36 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useGetAllCurrenciesQuery } from '../../store/api/CurrencyApi';
-import { CurrencyModel } from '../../models/CurrencyModel';
 import styles from './HomePage.module.scss';
 
 const HomePage = () => {
-  const { data, isLoading, isSuccess } = useGetAllCurrenciesQuery();
-  const [currencies, setCurrencies] = useState<CurrencyModel[]>();
+  const navigate = useNavigate();
+  const {
+    data: currencies, isLoading, isFetching, error,
+  } = useGetAllCurrenciesQuery();
 
-  useEffect(() => {
-    if (isSuccess && !isLoading) {
-      setCurrencies(Object.entries(data).map(([currency, name]) => ({ currency, name })));
-    }
-  }, [data, isSuccess]);
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if ((!currencies && !isFetching) || error) {
+    throw new Error('Something went wrong...');
+  }
+
+  const currencyArray = Object.keys(currencies);
 
   return (
-    <div>
-      {isLoading && (
-        <>
-
-        </>
-      )}
-
-      {isSuccess && (
-        <>
-          {currencies && currencies.map(({ currency, name }) => (
-            <div>
-              <button>{`${currency.toUpperCase()} "${name}"`}</button>
-            </div>
-          ))}
-        </>
-      )}
-    </div>
+    <section className={`container ${styles.currencies}`}>
+      {currencyArray.map((key) => (
+        <button
+          onClick={() => {
+            navigate(`/currency/${key}`);
+          }}
+          className={styles.currencies_btn}
+          key={key}
+          type="button"
+        >
+          {key}
+        </button>
+      ))}
+    </section>
   );
 };
 

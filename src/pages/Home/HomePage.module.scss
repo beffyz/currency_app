@@ -1,0 +1,22 @@
+.currencies {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fill, 100px);
+  margin-top: 135px;
+}
+
+.currencies_btn {
+  text-transform: uppercase;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: lightgreen;
+  color: white;
+  transition: background-color 0.2s;
+  font-size: 20px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: greenyellow;
+  }
+}

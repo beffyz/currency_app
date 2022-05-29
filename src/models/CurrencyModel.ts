@@ -1,4 +1,5 @@
 export type CurrencyModel = {
- currency: string
- name: string
+ [key: string]: string
 }
+
+export type AllCurrencyModel = CurrencyModel[]
